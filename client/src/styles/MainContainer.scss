@@ -1,0 +1,16 @@
+.container__main {
+  flex-direction: column;
+  padding: 0rem 8rem;
+  .container__nav {
+    background-color: #242424;
+    width: 96%;
+    margin-bottom: 3rem;
+    margin-top: 3rem;
+    align-self: center;
+    height: 8rem;
+  }
+  .container__users {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}

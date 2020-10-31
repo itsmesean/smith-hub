@@ -1,0 +1,17 @@
+.container__login {
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  .btn__login {
+    padding: 0rem;
+    .github__logo {
+      border-right: 0.1rem solid $secondary;
+      align-items: center;
+      padding: 0.25rem;
+    }
+    .github__login {
+      padding: 0.5rem;
+    }
+  }
+}

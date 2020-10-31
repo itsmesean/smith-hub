@@ -1,0 +1,10 @@
+@import "variables";
+@import "scaffolding";
+@import "login";
+@import "MainContainer";
+@import "userCard";
+@import "activityGraph";
+
+.container {
+  display: flex;
+}

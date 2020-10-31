@@ -1,0 +1,42 @@
+.graph {
+  display: flex;
+  justify-content: center;
+  padding-top: .1rem;
+  padding-bottom: .6rem;
+
+  span {
+    width: 1rem;
+    height: 1rem;
+    margin: 0rem 0.2rem;
+  }
+}
+
+.graph span {
+  background-color: #baeee8;
+}
+
+.graph span[data-level="1"] {
+  background-color: #6acac2;
+}
+
+.graph span[data-level="2"] {
+  background-color: #143d8c;
+}
+
+.graph span[data-level="3"] {
+  background-color: #1ca89d;
+}
+
+.StarsGraph {
+  display: flex;
+  justify-content: center;
+  padding-top: .1rem;
+
+  span {
+    width: 1rem;
+    height: 1rem;
+    margin: 0rem 0.2rem;
+  }
+}
+
+

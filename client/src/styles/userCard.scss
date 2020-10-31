@@ -1,0 +1,36 @@
+.userCard {
+  flex-direction: column;
+  border: 3px solid $border-color;
+  margin: 0.5rem;
+  width: 15rem;
+  height: 15rem;
+  background-color: $secondary;
+
+  .userCard__heading {
+    display: flex;
+    justify-content: flex-end;
+    background-color: $border-color;
+    span {
+      color: $tertiary;
+    }
+    .cog {
+      margin-top: .3rem;
+      margin-right: .3rem;
+    }
+  }
+  .userCard__main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-size: contain;
+    width: 100%;
+    height: 100%;
+  }
+  .userCard__footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: $border-color;
+  }
+}
