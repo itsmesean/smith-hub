@@ -4,7 +4,6 @@ const { sequelize } = require("./sql/models");
 const { PORT } = process.env;
 
 async function assertDatabaseConnectionOk() {
-  console.log(`Checking database connection...`);
   try {
     await sequelize.authenticate();
     console.log("Database connection OK!");
@@ -17,9 +16,7 @@ async function assertDatabaseConnectionOk() {
 
 async function init() {
   await assertDatabaseConnectionOk();
-
   console.log(`Starting Sequelize + Express example on port ${PORT}...`);
-
   app.listen(PORT, () => {
     console.log(`Express server started on port ${PORT}.`);
   });

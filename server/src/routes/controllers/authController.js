@@ -12,6 +12,7 @@ async function isLoggedIn(req, res, next) {
       log: `Error in middleware authController.isLoggedIn: ${err}`,
     });
   }
+  return null;
 }
 
 async function loginUser(req, res, next) {
