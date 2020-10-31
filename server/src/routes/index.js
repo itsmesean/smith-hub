@@ -19,7 +19,7 @@ router.get(
 router.get("/auth/oauth", (req, res) => {
   const root =
     process.env.NODE_ENV === "production"
-      ? "https://smith-hub.herokuapp.com/api/auth/callback&"
+      ? "https://smith-hub.com/api/auth/callback&"
       : `http://localhost:8080/api/auth/callback&`;
 
   const url =
