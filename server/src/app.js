@@ -1,4 +1,3 @@
-/* eslint-disable no-restricted-syntax */
 require("dotenv").config();
 const cors = require("cors");
 const path = require("path");

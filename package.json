@@ -1,5 +1,5 @@
 {
-  "name": "codesmithie",
+  "name": "smith-hub",
   "version": "1.0.1",
   "description": "Its about family",
   "engines": {
@@ -15,7 +15,6 @@
     "client-dev": "cross-env NODE_ENV=development webpack serve --config client/config/webpack.dev.js",
     "client-prod": "cross-env NODE_ENV=production webpack --config client/config/webpack.prod.js"
   },
-  "keywords": [],
   "author": "Sean Arseneault",
   "license": "ISC",
   "devDependencies": {
