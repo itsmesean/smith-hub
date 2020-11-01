@@ -1,14 +1,21 @@
 html {
   font-size: $font-size;
+  font-family: $font-family;
   background-color: $background-color;
   height: 100%;
-  color: white;
+  line-height: 1.4;
 }
 
 body {
-  height: 100%;
+  margin: 0;
+  width: 100vw;
 }
 
 #root {
-  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  align-self: center;
+  height: 100vh;
 }

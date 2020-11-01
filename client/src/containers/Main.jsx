@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-import UserCard from "../components/UserCard";
+import UserCard from "../components/Cards/UserCard";
 
 function Main({ setUserData, logout, userState }) {
   const [userList, setUserList] = useState([]);
@@ -34,7 +34,6 @@ function Main({ setUserData, logout, userState }) {
 
   return (
     <main className="container container__main">
-      <div className="container container__nav" />
       <div className="container container__users">{users}</div>
     </main>
   );

@@ -31,15 +31,6 @@ const origin = {
 app.use(cors(origin));
 
 /**
- * rate limiter
- */
-const limiter = rateLimit({
-  windowMs: 1 * 60 * 1000, // 1 minute
-  max: 20,
-});
-app.use(limiter);
-
-/**
  * static
  */
 app.use("/dist", express.static(path.resolve(__dirname, "../../dist")));
@@ -47,6 +38,12 @@ app.use("/dist", express.static(path.resolve(__dirname, "../../dist")));
 app.use("/api", indexRouter);
 
 if (process.env.NODE_ENV === "production") {
+  const limiter = rateLimit({
+    windowMs: 1 * 60 * 1000, // 1 minute
+    max: 20,
+  });
+  app.use(limiter);
+
   app.get("/", (req, res) => {
     res.status(200).sendFile(path.resolve(__dirname, "../../dist/index.html"));
   });

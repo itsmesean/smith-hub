@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 import Main from "./containers/Main";
+import Nav from "./containers/Nav";
 
 function App() {
   const [userState, setUserState] = useState({
@@ -91,6 +92,7 @@ function App() {
 
   return (
     <div>
+      <Nav />
       <Main userState={userState} setUserData={SET_USER_DATA} logout={LOGOUT} />
     </div>
   );
