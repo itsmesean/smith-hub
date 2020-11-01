@@ -1,16 +1,22 @@
 .container__main {
   flex-direction: column;
   padding: 0rem 8rem;
-  .container__nav {
-    background-color: #242424;
-    width: 96%;
-    margin-bottom: 3rem;
-    margin-top: 3rem;
-    align-self: center;
-    height: 8rem;
-  }
+  opacity: 0;
+    animation: fadeInAnimationLogo ease 4s;
+    animation-iteration-count: 1; 
+    animation-fill-mode: forwards; 
   .container__users {
     flex-wrap: wrap;
     justify-content: center;
   }
+}
+
+@keyframes fadeInAnimationLogo { 
+  0% { 
+      opacity: 0;
+  } 
+   100% { 
+    opacity: 1;
+
+ }  
 }
