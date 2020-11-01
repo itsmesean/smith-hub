@@ -2,20 +2,66 @@ html {
   font-size: $font-size;
   font-family: $font-family;
   background-color: $background-color;
-  height: 100%;
-  line-height: 1.4;
-}
-
-body {
-  margin: 0;
-  width: 100vw;
 }
 
 #root {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  align-self: center;
   height: 100vh;
 }
+.container {
+  display:flex;
+}
+html, body, .grid-container { height: 100%; margin: 0; }
+
+.grid-container {
+  display: grid;
+  grid-template-columns: 0.3fr 1.7fr 1.7fr 0.3fr;
+  grid-template-rows: 0.6fr 2.2fr 0.2fr;
+  gap: 0px 0px;
+  grid-template-areas:
+    "header header header header"
+    "main main main main"
+    "footer footer footer footer";
+}
+
+.header {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1.6fr 0.4fr;
+  gap: 0px 0px;
+  grid-template-areas:
+    "heading "
+    "nav";
+  grid-area: header;
+}
+
+.heading { grid-area: heading; }
+.nav { grid-area: nav; }
+
+.main {
+  display: grid;
+  grid-template-columns: 0.2fr 2.6fr 0.2fr;
+  grid-template-rows: 1fr;
+  gap: 0px 0px;
+  grid-template-areas:
+    "marginL card_container marginR";
+  grid-area: main;
+}
+
+.card_container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  gap: .5em .5em;
+  grid-template-areas:
+    ". . . . . . ."
+    ". . . . . . ."
+    ". . . . . . .";
+  grid-area: card_container;
+}
+
+.marginL { grid-area: marginL; }
+
+.marginR { grid-area: marginR; }
+
+.footer { grid-area: footer; }
+

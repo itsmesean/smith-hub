@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 import Main from "./containers/Main";
-import Nav from "./containers/Nav";
+import Header from "./containers/Header";
+import Footer from "./containers/Footer";
 
 function App() {
   const [userState, setUserState] = useState({
@@ -12,10 +13,6 @@ function App() {
     login: "",
     htmlUrl: "",
     activity: "",
-  });
-
-  const [logoState, setlogoState] = useState({
-    open: true,
   });
 
   function LOGIN() {
@@ -91,9 +88,10 @@ function App() {
   }
 
   return (
-    <div>
-      <Nav />
+    <div className="grid-container">
+      <Header />
       <Main userState={userState} setUserData={SET_USER_DATA} logout={LOGOUT} />
+      <Footer />
     </div>
   );
 }

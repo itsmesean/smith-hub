@@ -33,9 +33,11 @@ function Main({ setUserData, logout, userState }) {
   });
 
   return (
-    <main className="container container__main">
-      <div className="container container__users">{users}</div>
-    </main>
+    <div className="main">
+      <div className="card_container">{users}</div>
+      <div className="marginL" />
+      <div className="marginR" />
+    </div>
   );
 }
 
