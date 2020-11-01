@@ -25,7 +25,6 @@ async function token(req, res, next) {
     )
     .then((githubRes) => {
       res.locals.token = githubRes.data.access_token;
-      console.log("token: ", res.locals.token);
       return next();
     })
     .catch((err) =>
@@ -51,7 +50,6 @@ async function userData(req, res, next) {
         login,
         avatarUrl,
       };
-      console.log("userData: ", res.locals.userData);
       return next();
     })
     .catch((err) => ({
