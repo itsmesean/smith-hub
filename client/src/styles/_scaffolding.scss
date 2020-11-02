@@ -119,13 +119,16 @@ body {
 
 button {
   background-color: #141e24;
+  font-family: JetBrainsMono-Variable ;
 }
 .wrapper {
-  min-width: 1920px;
-  max-width: 2560px;
   display: flex;
   flex-direction: column;
   min-height: 100%;
+}
+
+.container {
+  display: flex;
 }
 
 .header {

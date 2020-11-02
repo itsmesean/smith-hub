@@ -7,13 +7,19 @@ function ProdStars({ prodStars }) {
     return (
       <FontAwesomeIcon
         icon={faStar}
+        className="star"
         color={day === 1 ? `#008a7e` : `#e94560`}
         key={i}
       />
     );
   });
 
-  return <div className="StarsGraph">{squares}</div>;
+  return (
+    <div className="StarsGraph">
+      <span className="stars__label">Project Stars</span>
+      <div className="stars__box">{squares}</div>
+    </div>
+  );
 }
 
 export default ProdStars;

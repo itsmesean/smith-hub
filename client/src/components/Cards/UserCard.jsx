@@ -3,14 +3,17 @@ import React from "react";
 import ActivityGraph from "./ActivityGraph";
 import ProdStars from "./ProdStars";
 
-function UserCard({ name, login, url, avatar_url, activity, prodStars }) {
+function UserCard({ name, login, url, avatarUrl, activity, prodStars }) {
   return (
     <div className="userCard">
       <div className="cardHeader">
         <span>{name}</span>
+        <div className="stars_container">
+          <ProdStars prodStars={prodStars} />
+        </div>
       </div>
       <div className="body">
-        <ProdStars prodStars={prodStars} />
+        <img src={avatarUrl} alt="" />
       </div>
       <div className="activity">
         <span>recent activity</span>
