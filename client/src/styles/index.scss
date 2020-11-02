@@ -8,10 +8,8 @@
 @import "scaffolding";
 @import "login";
 @import "MainContainer";
-@import "UserCard";
+@import "userCard";
 @import "activityGraph";
-@import "Nav";
+@import "Header";
 
-.container {
-  display: flex;
-};
+

@@ -32,11 +32,7 @@ function Main({ setUserData, logout, userState }) {
     );
   });
 
-  return (
-    <main className="container container__main">
-      <div className="container container__users">{users}</div>
-    </main>
-  );
+  return <main className="content">{users}</main>;
 }
 
 export default Main;

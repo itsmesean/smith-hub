@@ -18,6 +18,8 @@
     height: 100%;
     .btn__login {
       opacity: 0;
+      outline: none;
+      border: 0.125rem solid #53a1b3;
       animation: fadeInAnimationLogo ease 4s;
       animation-iteration-count: 1; 
       animation-fill-mode: forwards;
@@ -27,8 +29,12 @@
         border-right: 0.1rem solid $secondary;
         align-items: center;
         padding: 0.25rem; 
+        path {
+          fill: $font
+        }
       }
       .github__login {
+        color: $font;
         padding: 0.5rem;
       }
     }

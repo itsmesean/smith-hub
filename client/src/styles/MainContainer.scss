@@ -1,22 +1,5 @@
-.container__main {
-  flex-direction: column;
-  padding: 0rem 8rem;
-  opacity: 0;
-    animation: fadeInAnimationLogo ease 4s;
-    animation-iteration-count: 1; 
-    animation-fill-mode: forwards; 
-  .container__users {
-    flex-wrap: wrap;
+.content {
+    display: flex;
     justify-content: center;
-  }
-}
-
-@keyframes fadeInAnimationLogo { 
-  0% { 
-      opacity: 0;
-  } 
-   100% { 
-    opacity: 1;
-
- }  
+    margin-top: 1rem;
 }

@@ -1,25 +1,23 @@
 import React from "react";
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCog } from "@fortawesome/free-solid-svg-icons";
 import ActivityGraph from "./ActivityGraph";
 import ProdStars from "./ProdStars";
 
-function UserCard({ name, login, url, avatar_url, activity, prodStars }) {
-  // avatar_url || (avatar_url = `https://robohash.org/${login}`);
-
+function UserCard({ name, login, url, avatarUrl, activity, prodStars }) {
   return (
-    <div className="container userCard">
-      <div className="userCard__heading">
-        <FontAwesomeIcon icon={faCog} color="grey" className="cog" />
-      </div>
-      <div className="container userCard__main">
+    <div className="userCard">
+      <div className="cardHeader">
         <span>{name}</span>
-        <ProdStars prodStars={prodStars} />
+        <div className="stars_container">
+          <ProdStars prodStars={prodStars} />
+        </div>
       </div>
-      <div className="userCard__footer">
+      <div className="body">
+        <img src={avatarUrl} alt="" />
+      </div>
+      <div className="activity">
+        <span>recent activity</span>
         <ActivityGraph activity={activity} />
-        {/* <a href={url}>{login}</a> */}
       </div>
     </div>
   );
