@@ -34,6 +34,7 @@ app.use(cors(origin));
  * static
  */
 app.use("/dist", express.static(path.resolve(__dirname, "../../dist")));
+app.use("/image", express.static(path.join(__dirname, "../../img")));
 
 app.use("/api", indexRouter);
 
