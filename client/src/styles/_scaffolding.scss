@@ -1,67 +1,143 @@
-html {
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+}
+#root {
   font-size: $font-size;
   font-family: $font-family;
+  color: $font;
   background-color: $background-color;
 }
 
-#root {
-  height: 100vh;
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+main,
+nav,
+section,
+summary {
+  display: block;
 }
-.container {
-  display:flex;
+body {
+  font: 13px/18px JetBrainsMono-Variable, sans-serif;
 }
-html, body, .grid-container { height: 100%; margin: 0; }
 
-.grid-container {
-  display: grid;
-  grid-template-columns: 0.3fr 1.7fr 1.7fr 0.3fr;
-  grid-template-rows: 0.6fr 2.2fr 0.2fr;
-  gap: 0px 0px;
-  grid-template-areas:
-    "header header header header"
-    "main main main main"
-    "footer footer footer footer";
+button {
+  background-color: #141e24;
+}
+.wrapper {
+  min-width: 1920px;
+  max-width: 2560px;
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
 }
 
 .header {
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: 1.6fr 0.4fr;
-  gap: 0px 0px;
-  grid-template-areas:
-    "heading "
-    "nav";
-  grid-area: header;
+	height: 12rem;
+	display: flex;
+	flex-direction: column;
+}
+.content {
+  flex: 1;
 }
 
-.heading { grid-area: heading; }
-.nav { grid-area: nav; }
-
-.main {
-  display: grid;
-  grid-template-columns: 0.2fr 2.6fr 0.2fr;
-  grid-template-rows: 1fr;
-  gap: 0px 0px;
-  grid-template-areas:
-    "marginL card_container marginR";
-  grid-area: main;
+.footer {
+	padding: 1.5rem 1.5rem;
+	text-align: center;
 }
-
-.card_container {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-  grid-template-rows: 1fr 1fr 1fr;
-  gap: .5em .5em;
-  grid-template-areas:
-    ". . . . . . ."
-    ". . . . . . ."
-    ". . . . . . .";
-  grid-area: card_container;
-}
-
-.marginL { grid-area: marginL; }
-
-.marginR { grid-area: marginR; }
-
-.footer { grid-area: footer; }
-

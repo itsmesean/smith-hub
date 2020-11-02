@@ -32,13 +32,7 @@ function Main({ setUserData, logout, userState }) {
     );
   });
 
-  return (
-    <div className="main">
-      <div className="card_container">{users}</div>
-      <div className="marginL" />
-      <div className="marginR" />
-    </div>
-  );
+  return <main className="content">{users}</main>;
 }
 
 export default Main;

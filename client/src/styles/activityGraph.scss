@@ -1,8 +1,8 @@
 .graph {
   display: flex;
   justify-content: center;
-  padding-top: .1rem;
-  padding-bottom: .6rem;
+  padding-top: .2rem;
+  padding-bottom: .5rem;
 
   span {
     width: 1rem;
@@ -12,19 +12,23 @@
 }
 
 .graph span {
-  background-color: #baeee8;
+  background-color: rgb(235, 234, 240);
 }
 
 .graph span[data-level="1"] {
-  background-color: #6acac2;
+  background-color: rgb(149, 228, 165);
 }
 
 .graph span[data-level="2"] {
-  background-color: #143d8c;
+  background-color: rgb(68, 207, 95);
 }
 
 .graph span[data-level="3"] {
-  background-color: #1ca89d;
+  background-color: rgb(41, 158, 63);
+}
+
+.graph span[data-level="4"] {
+  background-color: rgb(25, 97, 39) ;
 }
 
 .StarsGraph {
