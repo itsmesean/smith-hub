@@ -3,7 +3,7 @@ import React from "react";
 function Login() {
   return (
     <div className="grid">
-      <img src="assets/csLogo.png" alt="" className="logo" />
+      <img src="image/csLogo.png" alt="" className="logo" />
       <div className="container container__login">
         <form className="login__form" method="GET" action="/api/auth/oauth">
           <button className="btn__login" type="submit">
