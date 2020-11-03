@@ -31,7 +31,6 @@ function Main({ setUserData, logout, userState }) {
       })
       .catch((err) => console.log(err));
   }
-  console.log(userList);
   const users = userList.map((user, i) => {
     return (
       <UserCard
