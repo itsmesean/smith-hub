@@ -1,8 +1,8 @@
 .graph {
   display: flex;
   justify-content: center;
-  padding-top: .2rem;
-  padding-bottom: .5rem;
+  padding-top: 0.2rem;
+  padding-bottom: 0.5rem;
 
   span {
     width: 1rem;
@@ -16,21 +16,17 @@
 }
 
 .graph span[data-level="1"] {
-  background-color: rgb(149, 228, 165);
+  background-color: rgb(149, 228, 228);
 }
 
 .graph span[data-level="2"] {
-  background-color: rgb(68, 207, 95);
+  background-color: rgb(68, 207, 200);
 }
 
 .graph span[data-level="3"] {
-  background-color: rgb(41, 158, 63);
+  background-color: rgb(41, 158, 158);
 }
 
 .graph span[data-level="4"] {
-  background-color: rgb(25, 97, 39) ;
+  background-color: rgb(25, 97, 93);
 }
-
-
-
-

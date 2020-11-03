@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 
 function ProdStars({ prodStars }) {
-  const squares = prodStars.map((day, i) => {
+  const [stars, setStars] = useState(prodStars);
+  const items = stars.map((day, i) => {
     return (
       <FontAwesomeIcon
         icon={faStar}
@@ -17,7 +18,7 @@ function ProdStars({ prodStars }) {
   return (
     <div className="StarsGraph">
       <span className="stars__label">Project Stars</span>
-      <div className="stars__box">{squares}</div>
+      <div className="stars__box">{items}</div>
     </div>
   );
 }

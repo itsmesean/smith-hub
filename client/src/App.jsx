@@ -42,6 +42,7 @@ function App() {
       login: data.login,
       htmlUrl: data.htmlUrl,
       activity: data.activity,
+      prodStars: data.prodStars,
     });
   }
 

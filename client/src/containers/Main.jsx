@@ -18,6 +18,20 @@ function Main({ setUserData, logout, userState }) {
       })
       .catch((err) => console.log(err));
   }, []);
+  function starAll() {
+    axios
+      .get("/api/starAll")
+      .then(({ data }) => {
+        if (data) {
+          window.location.reload(false);
+          return null;
+        }
+        console.log("Nothing to Star");
+        return null;
+      })
+      .catch((err) => console.log(err));
+  }
+  console.log(userList);
   const users = userList.map((user, i) => {
     return (
       <UserCard
@@ -28,6 +42,7 @@ function Main({ setUserData, logout, userState }) {
         activity={user.activity}
         prodStars={user.prodStars}
         key={i}
+        starAll={starAll}
       />
     );
   });

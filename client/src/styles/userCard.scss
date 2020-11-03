@@ -21,31 +21,41 @@
   align-items: center;
   font-size: 1.3rem;
   font-weight: 600;
-  >span {
-    padding: 0.7rem 0 .7rem 0;
+  > span {
+    padding: 0.7rem 0 0.7rem 0;
   }
 }
 .stars_container {
   width: 100%;
   display: flex;
   justify-content: center;
-
+  .cog__box {
+    border-top: 0.125rem solid #316e7d;
+    width: 2.08rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .excl {
+      margin-top: .1rem;
+      width: .4rem;
+      color: #e94560;
+    }
+  }
   .StarsGraph {
     display: flex;
     flex-direction: column;
     .stars__label {
-      line-height: .5rem;
+      line-height: 0.4rem;
       text-align: center;
       color: $special;
-      font-size: 0.7rem;
+      font-size: 0.65rem;
       border-left: 0.125rem solid #316e7d;
       border-right: 0.125rem solid #316e7d;
     }
     .stars__box {
       display: flex;
       justify-content: center;
-
-      padding: 0.2rem 0.1rem 0.2rem 0.1rem;
+      padding: 0.1rem 0.1rem 0.2rem 0.1rem;
       width: min-content;
       border-top: none;
       border-left: 0.125rem solid #316e7d;
@@ -60,8 +70,7 @@
   }
 }
 
-.stars_container::before,
-.stars_container::after {
+.stars_container::before {
   border-top: 0.125rem solid #316e7d;
   content: "";
   flex: auto;
@@ -69,6 +78,17 @@
 
 .body {
   grid-area: body;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .img__line {
+    border-bottom: 0.125rem solid #316e7d5b;
+    width: 2rem;
+  }
+  .avatar__img {
+    width: 8rem;
+    height: 8rem;
+  }
 }
 
 .activity {
@@ -82,3 +102,7 @@
     font-size: 0.7rem;
   }
 }
+
+
+
+

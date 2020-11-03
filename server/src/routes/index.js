@@ -49,6 +49,28 @@ router.get(
     res.redirect("/");
   },
 );
+router.get(
+  "/starAll",
+  authController.isLoggedIn,
+  userController.getData,
+  githubController.starAll,
+  (req, res) => {
+    return res.redirect("/api/update");
+  },
+);
+
+router.get(
+  "/update",
+  authController.isLoggedIn,
+  userController.getData,
+  githubController.userActivity,
+  githubController.PPstars,
+  userController.update,
+  userController.getAll,
+  (req, res) => {
+    return res.status(200).json(res.locals);
+  },
+);
 
 router.get("/auth/verify", authController.isLoggedIn, (req, res) => {
   res.status(200).json(res.locals);

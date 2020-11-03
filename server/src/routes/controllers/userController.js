@@ -14,24 +14,46 @@ async function getData(req, res, next) {
   return next();
 }
 
+async function update(req, res, next) {
+  try {
+    const user = await models.User.update(
+      {
+        activity: res.locals.user.activity,
+        prodStars: res.locals.user.prodStars,
+      },
+      {
+        where: { githubId: res.locals.user.githubId },
+      },
+    );
+    if (user) {
+      return next();
+    }
+  } catch (err) {
+    return next({
+      log: `Error in middleware authController.loginUser: ${err}`,
+    });
+  }
+  return null;
+}
+
 async function create(req, res, next) {
+  console.log("create");
   try {
     const [user, created] = await models.User.findOrCreate({
-      where: { githubId: res.locals.userData.githubId },
+      where: { githubId: res.locals.user.githubId },
       defaults: {
-        name: res.locals.userData.name,
-        githubId: res.locals.userData.githubId,
-        htmlUrl: res.locals.userData.htmlUrl,
-        login: res.locals.userData.login,
-        avatarUrl: res.locals.userData.avatarUrl,
-        activity: res.locals.activity,
-        prodStars: res.locals.prodStars,
-        token: res.locals.token,
+        name: res.locals.user.name,
+        githubId: res.locals.user.githubId,
+        htmlUrl: res.locals.user.html_url,
+        login: res.locals.user.login,
+        avatarUrl: res.locals.user.avatar_url,
+        activity: res.locals.user.activity,
+        prodStars: res.locals.user.prodStars,
+        token: res.locals.user.token,
       },
     });
     if (user) {
-      console.log("Created: ", created);
-      res.locals.userData.id = user.id;
+      res.locals.user.id = user.id;
       return next();
     }
   } catch (err) {
@@ -46,4 +68,5 @@ module.exports = {
   getAll,
   getData,
   create,
+  update,
 };
