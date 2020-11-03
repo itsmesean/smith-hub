@@ -12,7 +12,21 @@ const indexRouter = require("./routes/index");
 const app = express();
 
 app.use(compression());
-app.use(helmet());
+app.use(
+  helmet.contentSecurityPolicy({
+    directives: {
+      defaultSrc: ["'self'"],
+      connectSrc: ["'self'"],
+      frameSrc: ["'self'"],
+      childSrc: ["'self'"],
+      scriptSrc: ["'self'"],
+      styleSrc: ["'self'"],
+      fontSrc: ["'self'"],
+      imgSrc: ["'self'", "https://*.githubusercontent.com"],
+      baseUri: ["'self'"],
+    },
+  }),
+);
 
 /**
  * req parsers
