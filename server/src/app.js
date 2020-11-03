@@ -21,7 +21,7 @@ app.use(
       childSrc: ["'self'"],
       scriptSrc: ["'self'"],
       styleSrc: ["'self'"],
-      fontSrc: ["'self'"],
+      fontSrc: ["'self'", "data:"],
       imgSrc: ["'self'", "https://*.githubusercontent.com"],
       baseUri: ["'self'"],
     },

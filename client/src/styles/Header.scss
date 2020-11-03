@@ -25,10 +25,10 @@
     width: 100%;
     .settings {
       border-bottom: none;
-      border-left: 0.2rem solid #316e7d;
-      border-right: 0.2rem solid #316e7d;
-      border-top: 0.2rem solid #316e7d;
-      color: #e96c4c;
+      border-left: 0.2rem solid $border-color;
+      border-right: 0.2rem solid $border-color;
+      border-top: 0.2rem solid $border-color;
+      color: $tertiary;
       padding: 0 0.5rem;
       span {
         height: 100%;
@@ -39,7 +39,7 @@
 }
 
 .nav__tabs::before {
-  border-bottom: 0.2rem solid #316e7d;
+  border-bottom: 0.2rem solid $border-color;
   content: "";
   flex: auto;
 }
