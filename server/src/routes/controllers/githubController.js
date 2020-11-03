@@ -115,7 +115,7 @@ async function userActivity(req, res, next) {
       const arr = weeks
         .map((week) =>
           week.contributionDays.map((day) =>
-            day.contributionCount > 3 ? 3 : day.contributionCount,
+            day.contributionCount > 3 ? 4 : day.contributionCount,
           ),
         )
         .flat();
