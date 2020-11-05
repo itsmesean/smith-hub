@@ -42,7 +42,7 @@ async function userData(req, res, next) {
         Authorization: `token ${res.locals.user.token}`,
       },
     })
-    .then(({ data: { id, name, html_url, login, avatar_url } }) => {
+    .then(({ data: { id, name, html_url, login, avatar_url, created_at } }) => {
       res.locals.user = {
         ...res.locals.user,
         githubId: id,
@@ -50,6 +50,7 @@ async function userData(req, res, next) {
         html_url,
         login,
         avatar_url,
+        created_at: new Date(created_at).toLocaleDateString(),
       };
       return next();
     })
@@ -66,14 +67,16 @@ async function updateUser(req, res, next) {
         Authorization: `token ${res.locals.user.token}`,
       },
     })
-    .then(({ data: { id, name, html_url, login, avatar_url } }) => {
+    .then(({ data: { id, name, html_url, login, avatar_url, created_at } }) => {
       res.locals.user = {
         githubId: id,
         name,
         html_url,
         login,
         avatar_url,
+        created_at,
       };
+
       return next();
     })
     .catch((err) => ({
@@ -189,6 +192,98 @@ async function starAll(req, res, next) {
     });
 }
 
+async function userStats(req, res, next) {
+  const user = res.locals.user.login;
+  const urls = [
+    `https://api.github.com/search/commits?q=author:${user}`,
+    `https://api.github.com/search/issues?q=is:pr+author:${user}`,
+    "https://api.github.com/users/itsmesean/starred",
+  ];
+  const promiseArray = urls.map((url) => {
+    return axios({
+      method: "get",
+      url,
+      headers: {
+        "content-type": "application/json",
+        Accept: "application/vnd.github.cloak-preview",
+        Authorization: `bearer ${res.locals.user.token}`,
+      },
+    });
+  });
+  axios
+    .all(promiseArray.map((p) => p.catch(() => undefined)))
+    .then((results) => {
+      return results.map((data) => {
+        return data;
+      });
+    })
+    .then((items) => {
+      for (let i = 0; i < items.length; i += 1) {
+        const { url } = items[i].config;
+        switch (true) {
+          case url.includes("issues"):
+            res.locals.user.totalPRs = items[i].data.total_count;
+            break;
+          case url.includes("commits"):
+            res.locals.user.totalCommits = items[i].data.total_count;
+            break;
+          case url.includes("starred"):
+            res.locals.user.starsGiven = items[i].data.length;
+            break;
+          default:
+            console.log(`Sorry`);
+        }
+      }
+      return next();
+    })
+    .catch((err) => ({
+      log: `Error in middleware githubController.userStats: ${err}`,
+    }));
+}
+
+// async function userStats(req, res, next) {
+//   const body = {
+//     query: `
+//     query {
+//       user(login: "${res.locals.user.login}") {
+//         name
+//         login
+//         pullRequests(first: 1) {
+//           totalCount
+//         }
+//         followers {
+//           totalCount
+//         }
+//         repositories(first: 100, ownerAffiliations: OWNER, orderBy: {direction: DESC, field: STARGAZERS}) {
+//           totalCount
+//           nodes {
+//             stargazers {
+//               totalCount
+//             }
+//           }
+//         }
+//       }
+//     }
+//     `,
+//   };
+
+//   axios({
+//     method: "post",
+//     url: "https://api.github.com/graphql",
+//     headers: { Authorization: `bearer ${res.locals.user.token}` },
+//     data: JSON.stringify(body),
+//   })
+//     .then(({ data }) => {
+//       const { user } = data.data;
+//       console.log(user);
+
+//       return next();
+//     })
+//     .catch((err) => ({
+//       log: `Error in middleware githubController.userData: ${err}`,
+//     }));
+// }
+
 module.exports = {
   token,
   userData,
@@ -196,4 +291,5 @@ module.exports = {
   PPstars,
   starAll,
   updateUser,
+  userStats,
 };

@@ -1,10 +1,10 @@
 .userCard {
   display: grid;
-  height: 18rem;
   width: 15rem;
+  height: 20rem;
   background-color: $secondary;
   border: 0.125rem solid #316e7d34;
-  margin: 0 .7rem;
+  margin: 0 0.7rem;
   grid-template-columns: 1fr;
   grid-template-rows: 0.3fr 2.2fr 0.2fr;
   gap: 0px 0px;
@@ -37,8 +37,8 @@
     justify-content: center;
     align-items: center;
     .excl {
-      margin-top: .1rem;
-      width: .4rem;
+      margin-top: 0.1rem;
+      width: 0.4rem;
       color: #e94560;
     }
   }
@@ -78,17 +78,77 @@
 }
 
 .body {
-  grid-area: body;
   display: flex;
-  justify-content: center;
-  align-items: center;
-  .img__line {
-    border-bottom: 0.125rem solid $border-half;
-    width: 2rem;
+  flex-direction: column;
+  .body__footer {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
-  .avatar__img {
-    width: 8rem;
-    height: 8rem;
+  .body__main {
+    grid-area: body;
+    display: flex;
+    justify-content: space-between;
+    .avatar__img {
+      margin-top: 1rem;
+      width: 7rem;
+      height: 7rem;
+    }
+    .stats__left {
+      display: flex;
+      width: 25%;
+      flex-direction: column;
+      margin-top: 0.1rem;
+      align-content: flex-start;
+      justify-content: flex-start;
+      > div {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        margin: 1.3rem 0 0 0.3rem;
+      }
+    }
+    .stats__right {
+      display: flex;
+      width: 25%;
+      padding-top: 1rem;
+      flex-direction: column;
+      align-content: flex-start;
+    }
+
+    
+
+    .tooltip {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0%;
+      width: max-content;
+
+      border: 0.075rem solid $border-color;
+      background-color: $background-color;
+      z-index: 1;
+    }
+
+    .stat {
+      position: relative;
+    }
+
+    .stat:hover .tooltip {
+      display: block;
+    }
+
+    svg {
+      fill: $border-color;
+      width: 1.2rem;
+      height: 1.2rem;
+      margin-right: 0.3rem;
+      path {
+        width: 1.2rem;
+        height: 1.2rem;
+      }
+    }
   }
 }
 
@@ -103,7 +163,3 @@
     font-size: 0.7rem;
   }
 }
-
-
-
-
