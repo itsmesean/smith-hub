@@ -28,7 +28,16 @@ module.exports = {
       prodStars: {
         type: Sequelize.JSON,
       },
-      token: {
+      starsGiven: {
+        type: Sequelize.INTEGER,
+      },
+      totalCommits: {
+        type: Sequelize.INTEGER,
+      },
+      totalPRs: {
+        type: Sequelize.INTEGER,
+      },
+      createdAt: {
         type: Sequelize.STRING,
       },
     });

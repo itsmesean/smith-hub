@@ -41,6 +41,7 @@ router.get(
   "/auth/callback",
   githubController.token,
   githubController.userData,
+  githubController.userStats,
   githubController.userActivity,
   githubController.PPstars,
   userController.create,
@@ -49,6 +50,7 @@ router.get(
     res.redirect("/");
   },
 );
+
 router.get(
   "/starAll",
   authController.isLoggedIn,
@@ -69,6 +71,15 @@ router.get(
   userController.getAll,
   (req, res) => {
     return res.status(200).json(res.locals);
+  },
+);
+
+router.get(
+  "/test",
+  userController.getData,
+  githubController.userStats,
+  (req, res) => {
+    return res.status(200).json(res.locals.user);
   },
 );
 

@@ -20,7 +20,10 @@ module.exports = (sequelize, DataTypes) => {
       avatarUrl: DataTypes.STRING,
       activity: DataTypes.JSON,
       prodStars: DataTypes.JSON,
-      token: DataTypes.STRING,
+      totalCommits: DataTypes.INTEGER,
+      totalPRs: DataTypes.INTEGER,
+      starsGiven: DataTypes.INTEGER,
+      createdAt: DataTypes.STRING,
     },
     {
       sequelize,

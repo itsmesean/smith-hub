@@ -17,7 +17,7 @@ async function isLoggedIn(req, res, next) {
 
 async function loginUser(req, res, next) {
   try {
-    const payload = { id: res.locals.user.id };
+    const payload = { id: res.locals.user.id, token: res.locals.user.token };
     const token = jwt.sign(payload, process.env.JWT_SECRET);
     res.cookie("jwt_token", token, { httpOnly: true });
     return next();

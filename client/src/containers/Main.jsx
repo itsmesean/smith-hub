@@ -31,7 +31,7 @@ function Main({ setUserData, logout, userState }) {
       })
       .catch((err) => console.log(err));
   }
-  const users = userList.map((user, i) => {
+  const users = userList.map((user) => {
     return (
       <UserCard
         name={user.name}
@@ -40,12 +40,15 @@ function Main({ setUserData, logout, userState }) {
         avatarUrl={user.avatarUrl}
         activity={user.activity}
         prodStars={user.prodStars}
-        key={i}
+        totalCommits={user.totalCommits}
+        totalPRs={user.totalPRs}
+        starsGiven={user.starsGiven}
+        createdAt={user.createdAt}
+        key={user.login}
         starAll={starAll}
       />
     );
   });
-
   return <main className="content">{users}</main>;
 }
 

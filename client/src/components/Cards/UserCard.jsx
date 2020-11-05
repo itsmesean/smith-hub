@@ -2,13 +2,13 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 import React, { useState } from "react";
-import axios from "axios";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faExclamation, faCheck } from "@fortawesome/free-solid-svg-icons";
+import { faExclamation } from "@fortawesome/free-solid-svg-icons";
 
 import ActivityGraph from "./ActivityGraph";
 import ProdStars from "./ProdStars";
+import CardBody from "./CardBody";
 
 function UserCard({
   name,
@@ -18,6 +18,10 @@ function UserCard({
   activity,
   prodStars,
   starAll,
+  totalCommits,
+  totalPRs,
+  starsGiven,
+  createdAt,
 }) {
   return (
     <div className="userCard">
@@ -43,11 +47,13 @@ function UserCard({
           )}
         </div>
       </div>
-      <div className="body">
-        <div className="img__line" />
-        <img className="avatar__img" src={avatarUrl} alt="" />
-        <div className="img__line" />
-      </div>
+      <CardBody
+        totalCommits={totalCommits}
+        totalPRs={totalPRs}
+        starsGiven={starsGiven}
+        avatarUrl={avatarUrl}
+        createdAt={createdAt}
+      />
       <div className="activity">
         <span>recent activity</span>
         <ActivityGraph activity={activity} />

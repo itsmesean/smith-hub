@@ -8,9 +8,13 @@ async function getAll(req, res, next) {
   return next();
 }
 async function getData(req, res, next) {
-  const { id } = jwt.verify(req.cookies.jwt_token, process.env.JWT_SECRET);
+  const { id, token } = jwt.verify(
+    req.cookies.jwt_token,
+    process.env.JWT_SECRET,
+  );
   const data = await models.User.findOne({ where: { id } });
   res.locals.user = data;
+  res.locals.user.token = token;
   return next();
 }
 
@@ -37,7 +41,6 @@ async function update(req, res, next) {
 }
 
 async function create(req, res, next) {
-  console.log("create");
   try {
     const [user, created] = await models.User.findOrCreate({
       where: { githubId: res.locals.user.githubId },
@@ -49,7 +52,10 @@ async function create(req, res, next) {
         avatarUrl: res.locals.user.avatar_url,
         activity: res.locals.user.activity,
         prodStars: res.locals.user.prodStars,
-        token: res.locals.user.token,
+        totalCommits: res.locals.user.totalCommits,
+        totalPRs: res.locals.user.totalPRs,
+        starsGiven: res.locals.user.starsGiven,
+        createdAt: res.locals.user.created_at,
       },
     });
     if (user) {
