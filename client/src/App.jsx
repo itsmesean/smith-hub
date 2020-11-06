@@ -9,40 +9,17 @@ import Footer from "./containers/Footer";
 function App() {
   const [userState, setUserState] = useState({
     isLoggedIn: false,
-    userId: "",
-    userName: "",
     login: "",
-    htmlUrl: "",
-    activity: "",
   });
 
-  function LOGIN() {
-    setUserState({
-      ...userState,
-      isLoggedIn: true,
-    });
+  function LOGIN(data) {
+    setUserState(data);
   }
 
   function LOGOUT() {
     setUserState({
       isLoggedIn: false,
-      userId: "",
-      userName: "",
       login: "",
-      htmlUrl: "",
-      activity: "",
-    });
-  }
-
-  function SET_USER_DATA(data) {
-    setUserState({
-      ...userState,
-      userId: data.id,
-      userName: data.name,
-      login: data.login,
-      htmlUrl: data.htmlUrl,
-      activity: data.activity,
-      prodStars: data.prodStars,
     });
   }
 
@@ -53,19 +30,19 @@ function App() {
         if (!data.isLoggedIn) {
           return LOGOUT();
         }
-        return LOGIN();
+        return LOGIN(data);
       })
       .catch((err) => console.log(err));
   }, []);
 
-  if (!userState.isLoggedIn) {
+  if (userState.isLoggedIn === false) {
     return <Login />;
   }
 
   return (
     <div className="wrapper">
       <Header />
-      <Main userState={userState} setUserData={SET_USER_DATA} logout={LOGOUT} />
+      <Main curUser={userState.login} />
       <Footer />
     </div>
   );

@@ -12,6 +12,10 @@ const indexRouter = require("./routes/index");
 const app = express();
 
 app.use(compression());
+
+/**
+ * CSP setup
+ */
 app.use(
   helmet.contentSecurityPolicy({
     directives: {
@@ -55,7 +59,7 @@ app.use("/api", indexRouter);
 if (process.env.NODE_ENV === "production") {
   const limiter = rateLimit({
     windowMs: 1 * 60 * 1000, // 1 minute
-    max: 20,
+    max: 5,
   });
   app.use(limiter);
 
@@ -63,5 +67,19 @@ if (process.env.NODE_ENV === "production") {
     res.status(200).sendFile(path.resolve(__dirname, "../../dist/index.html"));
   });
 }
+
+/**
+ * error handler
+ */
+app.use((err, req, res, next) => {
+  const defaultErr = {
+    log: "Express error handler caught unknown middleware error",
+    status: 400,
+    message: { err: "An error occurred. Check server logs for details." },
+  };
+  const errorObj = { ...defaultErr, ...err };
+  console.log(errorObj.log);
+  return res.status(errorObj.status).json(errorObj.message);
+});
 
 module.exports = app;

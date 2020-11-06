@@ -7,7 +7,7 @@ async function getAll(req, res, next) {
   res.locals.userList = users;
   return next();
 }
-async function getData(req, res, next) {
+async function getCredentials(req, res, next) {
   const { id, token } = jwt.verify(
     req.cookies.jwt_token,
     process.env.JWT_SECRET,
@@ -24,6 +24,9 @@ async function update(req, res, next) {
       {
         activity: res.locals.user.activity,
         prodStars: res.locals.user.prodStars,
+        totalCommits: res.locals.user.totalCommits,
+        totalPRs: res.locals.user.totalPRs,
+        starsGiven: res.locals.user.starsGiven,
       },
       {
         where: { githubId: res.locals.user.githubId },
@@ -72,7 +75,7 @@ async function create(req, res, next) {
 
 module.exports = {
   getAll,
-  getData,
+  getCredentials,
   create,
   update,
 };
