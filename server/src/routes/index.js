@@ -8,15 +8,9 @@ const {
 
 const router = Router();
 
-router.get(
-  "/user",
-  authController.isLoggedIn,
-  userController.getData,
-  userController.getAll,
-  (req, res) => {
-    return res.send(res.locals);
-  },
-);
+router.get("/user", userController.getAll, (req, res) => {
+  return res.send(res.locals);
+});
 
 router.get("/auth/oauth", (req, res) => {
   const root =
@@ -53,8 +47,7 @@ router.get(
 
 router.get(
   "/starAll",
-  authController.isLoggedIn,
-  userController.getData,
+  userController.getCredentials,
   githubController.starAll,
   (req, res) => {
     return res.redirect("/api/update");
@@ -63,8 +56,8 @@ router.get(
 
 router.get(
   "/update",
-  authController.isLoggedIn,
-  userController.getData,
+  userController.getCredentials,
+  githubController.userStats,
   githubController.userActivity,
   githubController.PPstars,
   userController.update,
@@ -76,7 +69,7 @@ router.get(
 
 router.get(
   "/test",
-  userController.getData,
+  userController.getCredentials,
   githubController.userStats,
   (req, res) => {
     return res.status(200).json(res.locals.user);

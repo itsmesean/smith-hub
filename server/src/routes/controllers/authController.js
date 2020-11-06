@@ -4,7 +4,7 @@ async function isLoggedIn(req, res, next) {
   try {
     jwt.verify(req.cookies.jwt_token, process.env.JWT_SECRET, (err, data) => {
       if (err) return res.status(200).json({ isLoggedIn: false });
-      res.locals = { isLoggedIn: true };
+      res.locals = { login: data.login, isLoggedIn: true };
       return next();
     });
   } catch (err) {
@@ -17,7 +17,11 @@ async function isLoggedIn(req, res, next) {
 
 async function loginUser(req, res, next) {
   try {
-    const payload = { id: res.locals.user.id, token: res.locals.user.token };
+    const payload = {
+      id: res.locals.user.id,
+      token: res.locals.user.token,
+      login: res.locals.user.login,
+    };
     const token = jwt.sign(payload, process.env.JWT_SECRET);
     res.cookie("jwt_token", token, { httpOnly: true });
     return next();

@@ -3,37 +3,41 @@ import axios from "axios";
 
 import UserCard from "../components/Cards/UserCard";
 
-function Main({ setUserData, logout, userState }) {
+function Main({ curUser }) {
   const [userList, setUserList] = useState([]);
+
   useEffect(() => {
     axios
       .get("/api/user")
       .then(({ data }) => {
-        if (!data.isLoggedIn) {
-          return logout();
+        if (data) {
+          setUserList(data.userList);
+          return true;
         }
-        setUserList(data.userList);
-        setUserData(data.user);
         return true;
       })
-      .catch((err) => console.log(err));
+      .catch((err) =>
+        console.log(err, "Problem getting users list in Main.jsx"),
+      );
   }, []);
+
   function starAll() {
     axios
       .get("/api/starAll")
       .then(({ data }) => {
         if (data) {
           window.location.reload(false);
-          return null;
+          return true;
         }
-        console.log("Nothing to Star");
-        return null;
+        return true;
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log(err, "Problem doing starAll in Main.jsx"));
   }
+
   const users = userList.map((user) => {
     return (
       <UserCard
+        auth={curUser === user.login}
         name={user.name}
         login={user.login}
         url={user.htmlUrl}
@@ -43,7 +47,13 @@ function Main({ setUserData, logout, userState }) {
         totalCommits={user.totalCommits}
         totalPRs={user.totalPRs}
         starsGiven={user.starsGiven}
-        createdAt={user.createdAt}
+        createdAt={(
+          (new Date() - Date.parse(user.createdAt)) /
+          1000 /
+          60 /
+          60 /
+          24
+        ).toFixed()}
         key={user.login}
         starAll={starAll}
       />

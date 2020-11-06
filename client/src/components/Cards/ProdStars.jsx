@@ -1,15 +1,14 @@
-import React, { useState } from "react";
+import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 
 function ProdStars({ prodStars }) {
-  const [stars, setStars] = useState(prodStars);
-  const items = stars.map((day, i) => {
+  const items = prodStars.map((project, i) => {
     return (
       <FontAwesomeIcon
         icon={faStar}
         className="star"
-        color={day === 1 ? `#008a7e` : `#e94560`}
+        color={project === 1 ? `#008a7e` : `#e94560`}
         key={i}
       />
     );

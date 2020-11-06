@@ -50,7 +50,7 @@ async function userData(req, res, next) {
         html_url,
         login,
         avatar_url,
-        created_at: new Date(created_at).toLocaleDateString(),
+        created_at,
       };
       return next();
     })
@@ -240,49 +240,6 @@ async function userStats(req, res, next) {
       log: `Error in middleware githubController.userStats: ${err}`,
     }));
 }
-
-// async function userStats(req, res, next) {
-//   const body = {
-//     query: `
-//     query {
-//       user(login: "${res.locals.user.login}") {
-//         name
-//         login
-//         pullRequests(first: 1) {
-//           totalCount
-//         }
-//         followers {
-//           totalCount
-//         }
-//         repositories(first: 100, ownerAffiliations: OWNER, orderBy: {direction: DESC, field: STARGAZERS}) {
-//           totalCount
-//           nodes {
-//             stargazers {
-//               totalCount
-//             }
-//           }
-//         }
-//       }
-//     }
-//     `,
-//   };
-
-//   axios({
-//     method: "post",
-//     url: "https://api.github.com/graphql",
-//     headers: { Authorization: `bearer ${res.locals.user.token}` },
-//     data: JSON.stringify(body),
-//   })
-//     .then(({ data }) => {
-//       const { user } = data.data;
-//       console.log(user);
-
-//       return next();
-//     })
-//     .catch((err) => ({
-//       log: `Error in middleware githubController.userData: ${err}`,
-//     }));
-// }
 
 module.exports = {
   token,
