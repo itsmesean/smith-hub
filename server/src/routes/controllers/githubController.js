@@ -59,31 +59,6 @@ async function userData(req, res, next) {
     }));
 }
 
-async function updateUser(req, res, next) {
-  axios
-    .get("https://api.github.com/user", {
-      headers: {
-        Accept: "application/vnd.github.v3+json",
-        Authorization: `token ${res.locals.user.token}`,
-      },
-    })
-    .then(({ data: { id, name, html_url, login, avatar_url, created_at } }) => {
-      res.locals.user = {
-        githubId: id,
-        name,
-        html_url,
-        login,
-        avatar_url,
-        created_at,
-      };
-
-      return next();
-    })
-    .catch((err) => ({
-      log: `Error in middleware githubController.userData: ${err}`,
-    }));
-}
-
 async function userActivity(req, res, next) {
   const d = new Date();
   const now = new Date();
@@ -115,13 +90,12 @@ async function userActivity(req, res, next) {
       const {
         weeks,
       } = data.data.user.contributionsCollection.contributionCalendar;
-      const arr = weeks
-        .map((week) =>
-          week.contributionDays.map((day) =>
-            day.contributionCount > 3 ? 4 : day.contributionCount,
-          ),
-        )
-        .flat();
+      const arr = [];
+      weeks.map((week) =>
+        week.contributionDays.map((day) => {
+          return arr.push({ date: day.date, count: day.contributionCount });
+        }),
+      );
       res.locals.user.activity = arr;
       return next();
     })
@@ -247,6 +221,5 @@ module.exports = {
   userActivity,
   PPstars,
   starAll,
-  updateUser,
   userStats,
 };

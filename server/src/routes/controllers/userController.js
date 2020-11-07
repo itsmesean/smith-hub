@@ -3,19 +3,31 @@ const jwt = require("jsonwebtoken");
 const models = require("../../../sql/models");
 
 async function getAll(req, res, next) {
-  const users = await models.User.findAll();
-  res.locals.userList = users;
-  return next();
+  try {
+    const users = await models.User.findAll();
+    res.locals.userList = users;
+    return next();
+  } catch (err) {
+    return next({
+      log: `Error in middleware userController.getAll: ${err}`,
+    });
+  }
 }
 async function getCredentials(req, res, next) {
-  const { id, token } = jwt.verify(
-    req.cookies.jwt_token,
-    process.env.JWT_SECRET,
-  );
-  const data = await models.User.findOne({ where: { id } });
-  res.locals.user = data;
-  res.locals.user.token = token;
-  return next();
+  try {
+    const { id, token, login } = jwt.verify(
+      req.cookies.jwt_token,
+      process.env.JWT_SECRET,
+    );
+    const data = await models.User.findOne({ where: { id, login } });
+    res.locals.user = data;
+    res.locals.user.token = token;
+    return next();
+  } catch (err) {
+    return next({
+      log: `Error in middleware userController.getCredentials: ${err}`,
+    });
+  }
 }
 
 async function update(req, res, next) {
