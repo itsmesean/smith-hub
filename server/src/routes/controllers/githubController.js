@@ -171,7 +171,7 @@ async function userStats(req, res, next) {
   const urls = [
     `https://api.github.com/search/commits?q=author:${user}`,
     `https://api.github.com/search/issues?q=is:pr+author:${user}`,
-    "https://api.github.com/users/itsmesean/starred",
+    `https://api.github.com/users/${user}/starred`,
   ];
   const promiseArray = urls.map((url) => {
     return axios({
@@ -202,6 +202,7 @@ async function userStats(req, res, next) {
             res.locals.user.totalCommits = items[i].data.total_count;
             break;
           case url.includes("starred"):
+            console.log(items[i].data, ">>>>>>>>>>>");
             res.locals.user.starsGiven = items[i].data.length;
             break;
           default:
