@@ -24,7 +24,7 @@ module.exports = {
       ],
     }),
     new HtmlWebpackPlugin({
-      title: "Codesmithie",
+      title: "Smith-Hub",
       favicon: `${paths.src}/images/favicon.png`,
       template: `${paths.src}/template.html`,
       filename: "index.html",

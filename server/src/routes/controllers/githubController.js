@@ -24,8 +24,7 @@ async function token(req, res, next) {
       },
     )
     .then((githubRes) => {
-      res.locals.token = githubRes.data.access_token;
-      console.log("token: ", res.locals.token);
+      res.locals.user = { token: githubRes.data.access_token };
       return next();
     })
     .catch((err) =>
@@ -40,18 +39,19 @@ async function userData(req, res, next) {
     .get("https://api.github.com/user", {
       headers: {
         Accept: "application/vnd.github.v3+json",
-        Authorization: `token ${res.locals.token}`,
+        Authorization: `token ${res.locals.user.token}`,
       },
     })
-    .then(({ data: { id, name, htmlUrl, login, avatarUrl } }) => {
-      res.locals.userData = {
+    .then(({ data: { id, name, html_url, login, avatar_url, created_at } }) => {
+      res.locals.user = {
+        ...res.locals.user,
         githubId: id,
         name,
-        htmlUrl,
+        html_url,
         login,
-        avatarUrl,
+        avatar_url,
+        created_at,
       };
-      console.log("userData: ", res.locals.userData);
       return next();
     })
     .catch((err) => ({
@@ -65,7 +65,7 @@ async function userActivity(req, res, next) {
   d.setDate(d.getDate() - 9);
   const body = {
     query: `query { 
-      user(login: "${res.locals.userData.login}") {
+      user(login: "${res.locals.user.login}") {
         contributionsCollection(from:"${d.toISOString()}", to:"${now.toISOString()}") {
           contributionCalendar{
             weeks {
@@ -83,21 +83,20 @@ async function userActivity(req, res, next) {
   axios({
     method: "post",
     url: "https://api.github.com/graphql",
-    headers: { Authorization: `token ${res.locals.token}` },
+    headers: { Authorization: `token ${res.locals.user.token}` },
     data: JSON.stringify(body),
   })
     .then(({ data }) => {
       const {
         weeks,
       } = data.data.user.contributionsCollection.contributionCalendar;
-      const arr = weeks
-        .map((week) =>
-          week.contributionDays.map((day) =>
-            day.contributionCount > 3 ? 3 : day.contributionCount,
-          ),
-        )
-        .flat();
-      res.locals.activity = arr;
+      const arr = [];
+      weeks.map((week) =>
+        week.contributionDays.map((day) => {
+          return arr.push({ date: day.date, count: day.contributionCount });
+        }),
+      );
+      res.locals.user.activity = arr;
       return next();
     })
     .catch((err) => ({
@@ -122,7 +121,7 @@ async function PPstars(req, res, next) {
       method: "get",
       url,
       headers: {
-        Authorization: `token ${res.locals.token}`,
+        Authorization: `token ${res.locals.user.token}`,
       },
     });
   });
@@ -131,27 +130,97 @@ async function PPstars(req, res, next) {
     .all(promiseArray.map((p) => p.catch(() => undefined)))
     .then((results) => {
       const items = results.map((bool) => (bool ? 1 : 0));
-      res.locals.prodStars = items;
+      res.locals.user.prodStars = items;
       return next();
     });
 }
 
-// githubController.fakeUser = async (req, res, next) => {
-//   const addUser = await req.context.models.User.create({
-//     name: req.body.name,
-//     github_id: req.body.github_id,
-//     html_url: req.body.html_url,
-//     login: req.body.login,
-//     avatar_url: req.body.avatar_url,
-//     activity: req.body.activity,
-//     ppStars: req.body.ppStars,
-//   });
-//   res.locals.id = addUser.id;
-//   return next();
-// };
+async function starAll(req, res, next) {
+  const urls = [
+    "https://api.github.com/user/starred/open-source-labs/reactime",
+    "https://api.github.com/user/starred/open-source-labs/SeeQR",
+    "https://api.github.com/user/starred/open-source-labs/Recoilize",
+    "https://api.github.com/user/starred/open-source-labs/Chromogen",
+    "https://api.github.com/user/starred/oslabs-beta/Aqls-client",
+    "https://api.github.com/user/starred/oslabs-beta/GatsbyHub",
+    "https://api.github.com/user/starred/oslabs-beta/irisql",
+    "https://api.github.com/user/starred/oslabs-beta/StratosDB",
+  ];
+
+  const promiseArray = urls.map((url) => {
+    return axios({
+      method: "put",
+      url,
+      headers: {
+        Authorization: `token ${res.locals.user.token}`,
+        "Content-Length": 0,
+      },
+    });
+  });
+
+  axios
+    .all(promiseArray.map((p) => p.catch(() => undefined)))
+    .then((results) => {
+      const items = results.map((bool) => bool);
+      return next();
+    });
+}
+
+async function userStats(req, res, next) {
+  const user = res.locals.user.login;
+  const urls = [
+    `https://api.github.com/search/commits?q=author:${user}`,
+    `https://api.github.com/search/issues?q=is:pr+author:${user}`,
+    `https://api.github.com/users/${user}/starred`,
+  ];
+  const promiseArray = urls.map((url) => {
+    return axios({
+      method: "get",
+      url,
+      headers: {
+        "content-type": "application/json",
+        Accept: "application/vnd.github.cloak-preview",
+        Authorization: `bearer ${res.locals.user.token}`,
+      },
+    });
+  });
+  axios
+    .all(promiseArray.map((p) => p.catch(() => undefined)))
+    .then((results) => {
+      return results.map((data) => {
+        return data;
+      });
+    })
+    .then((items) => {
+      for (let i = 0; i < items.length; i += 1) {
+        const { url } = items[i].config;
+        switch (true) {
+          case url.includes("issues"):
+            res.locals.user.totalPRs = items[i].data.total_count;
+            break;
+          case url.includes("commits"):
+            res.locals.user.totalCommits = items[i].data.total_count;
+            break;
+          case url.includes("starred"):
+            res.locals.user.starsGiven = items[i].data.map((repo) => repo.id);
+            break;
+          default:
+            console.log(`Sorry`);
+        }
+      }
+
+      return next();
+    })
+    .catch((err) => ({
+      log: `Error in middleware githubController.userStats: ${err}`,
+    }));
+}
+
 module.exports = {
   token,
   userData,
   userActivity,
   PPstars,
+  starAll,
+  userStats,
 };

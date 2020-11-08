@@ -6,11 +6,11 @@ const common = require("./webpack.common.js");
 const paths = require("./paths");
 
 module.exports = merge(common, {
-  mode: "production",
+  mode: process.env.NODE_ENV,
   devtool: false,
   output: {
     path: paths.build,
-    publicPath: "/",
+    publicPath: "/dist/",
     filename: "js/[name].[contenthash].bundle.js",
   },
   plugins: [

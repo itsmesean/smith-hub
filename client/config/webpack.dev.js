@@ -9,12 +9,17 @@ module.exports = merge(common, {
   devServer: {
     historyApiFallback: true,
     contentBase: paths.build,
+    publicPath: "/",
     open: true,
     compress: true,
     hot: true,
     port: 8080,
     proxy: {
       "/api": {
+        target: "http://localhost:3000",
+        secure: false,
+      },
+      "/image": {
         target: "http://localhost:3000",
         secure: false,
       },

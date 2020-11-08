@@ -1,25 +1,21 @@
 const { Router } = require("express");
 
-const { authController } = require("./controllers");
-const { userController } = require("./controllers");
-const { githubController } = require("./controllers");
+const {
+  authController,
+  userController,
+  githubController,
+} = require("./controllers");
 
 const router = Router();
 
-router.get(
-  "/user",
-  authController.isLoggedIn,
-  userController.getData,
-  userController.getAll,
-  (req, res) => {
-    return res.send(res.locals);
-  },
-);
+router.get("/user", userController.getAll, (req, res) => {
+  return res.send(res.locals);
+});
 
 router.get("/auth/oauth", (req, res) => {
   const root =
     process.env.NODE_ENV === "production"
-      ? "https://smith-hub.herokuapp.com/api/auth/callback&"
+      ? "https://smith-hub.com/api/auth/callback&"
       : `http://localhost:8080/api/auth/callback&`;
 
   const url =
@@ -39,12 +35,44 @@ router.get(
   "/auth/callback",
   githubController.token,
   githubController.userData,
+  githubController.userStats,
   githubController.userActivity,
   githubController.PPstars,
   userController.create,
   authController.loginUser,
   (req, res) => {
     res.redirect("/");
+  },
+);
+
+router.get(
+  "/starAll",
+  userController.getCredentials,
+  githubController.starAll,
+  (req, res) => {
+    return res.redirect("/api/update");
+  },
+);
+
+router.get(
+  "/update",
+  userController.getCredentials,
+  githubController.userStats,
+  githubController.userActivity,
+  githubController.PPstars,
+  userController.update,
+  userController.getAll,
+  (req, res) => {
+    return res.status(200).json(res.locals);
+  },
+);
+
+router.get(
+  "/test",
+  userController.getCredentials,
+  githubController.userStats,
+  (req, res) => {
+    return res.status(200).json(res.locals.user);
   },
 );
 
