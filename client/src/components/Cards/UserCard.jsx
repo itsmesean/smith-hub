@@ -24,12 +24,26 @@ function UserCard({
   starsGiven,
   createdAt,
 }) {
+  const curPP = [
+    197829646,
+    298694172,
+    285941357,
+    298697212,
+    306221589,
+    273597240,
+    285937589,
+    298639605,
+  ];
+  const temp = starsGiven.filter((id) => {
+    return curPP.includes(id);
+  });
+  console.log(temp);
   return (
     <div className="userCard">
       <div className="cardHeader">
         <span>{name || login}</span>
         <div className="stars_container">
-          <ProdStars prodStars={prodStars} />
+          <ProdStars prodStars={temp} />
           {prodStars.includes(0) && auth ? (
             <div
               className="cog__box"

@@ -22,7 +22,7 @@ module.exports = (sequelize, DataTypes) => {
       prodStars: DataTypes.JSON,
       totalCommits: DataTypes.INTEGER,
       totalPRs: DataTypes.INTEGER,
-      starsGiven: DataTypes.INTEGER,
+      starsGiven: DataTypes.ARRAY(DataTypes.INTEGER),
       createdAt: DataTypes.STRING,
     },
     {

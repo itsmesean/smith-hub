@@ -31,7 +31,7 @@ function CardBody({
           </div>
           <div className="stat">
             <Icon type="star" />
-            {starsGiven}
+            {starsGiven.length}
             <span className="tooltip">
               <div>total stars given</div>
             </span>

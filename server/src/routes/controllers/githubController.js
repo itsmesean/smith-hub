@@ -202,13 +202,13 @@ async function userStats(req, res, next) {
             res.locals.user.totalCommits = items[i].data.total_count;
             break;
           case url.includes("starred"):
-            console.log(items[i].data, ">>>>>>>>>>>");
-            res.locals.user.starsGiven = items[i].data.length;
+            res.locals.user.starsGiven = items[i].data.map((repo) => repo.id);
             break;
           default:
             console.log(`Sorry`);
         }
       }
+
       return next();
     })
     .catch((err) => ({

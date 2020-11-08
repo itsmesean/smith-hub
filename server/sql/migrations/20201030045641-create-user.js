@@ -29,7 +29,7 @@ module.exports = {
         type: Sequelize.JSON,
       },
       starsGiven: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.ARRAY(Sequelize.INTEGER),
       },
       totalCommits: {
         type: Sequelize.INTEGER,
